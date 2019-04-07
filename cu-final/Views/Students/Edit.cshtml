@@ -1,0 +1,68 @@
+﻿@model ContosoUniversity.Models.Student
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>编辑</h2>
+
+<h4>学生</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">姓名</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnrollmentDate" class="control-label">入学时间</label>
+                <input asp-for="EnrollmentDate" class="form-control" />
+                <span asp-validation-for="EnrollmentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnrollmentCount" class="control-label">剩余课时</label>
+                <input asp-for="EnrollmentCount" class="form-control" />
+                <span asp-validation-for="EnrollmentCount" class="text-danger"></span>
+            </div>
+            <table class="table">
+                <tr>
+                    <th>选课</th>
+                    <th>课程名</th>
+                </tr>
+                @{
+                    List<ContosoUniversity.Models.SchoolViewModels.AssignedCourseData> courses = ViewBag.Courses;
+
+                    foreach (var course in courses)
+                    {
+                        @:<tr>
+                            @:<td>
+                                <input type="checkbox"
+                                       name="selectedCourses"
+                                       value="@course.CourseID"
+                                       @(Html.Raw(course.Assigned ? "checked=\"checked\"" : "")) />
+                            @:</td>
+                            @:<td>
+                                @course.Title
+                            @:</td>
+                        @:</tr>
+                    }
+                }
+            </table>
+            <div class="form-group">
+                <input type="submit" value="保存" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">回到列表</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

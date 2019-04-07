@@ -1,0 +1,75 @@
+﻿@model ContosoUniversity.Models.Instructor
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>详情</h2>
+
+<div>
+    <h4>老师详情</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HireDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HireDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">编辑</a> |
+    <a asp-action="Index">回到列表</a>
+</div>
+<div>
+    <input type="hidden" value="@Model.ID" id="InstructorID" />
+    <h4>上课详情</h4>
+    <hr />
+    <label>开始时间</label>
+    <input type="date" id="startDate" value="" />
+    <label>结束时间</label>
+    <input type="date" id="endDate" value="" />
+    <input type="button" id="searchInstructor" value="搜索" />
+    <table class="table" id="courseScheduleForInstructor">
+        <tbody></tbody>
+    </table>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+
+            var dealCourseSchedule = function () {
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
+                $.ajax({
+                    url: "/CourseSchedules/GetCourseByInstructorId",
+                    data: {
+                        InstructorID: $("#InstructorID").val(),
+                        startDate: startDate,
+                        endDate: endDate
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        var optionString = '<tr><td>课程名</td><td>上课时间</td></tr>';
+                        for (var i = 0; i < data.length; i++) {
+                            optionString += '<tr><td>' + data[i].courseName + '</td><td>' + data[i].scheduleDate + '</td></tr>';
+                        }
+                        $("#courseScheduleForInstructor>tbody").empty().append(optionString);
+                    }
+                });
+            };
+            dealCourseSchedule();
+            $("#searchInstructor").bind('click', dealCourseSchedule);
+        });
+    </script>
+}

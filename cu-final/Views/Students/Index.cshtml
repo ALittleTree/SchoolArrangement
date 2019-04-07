@@ -1,0 +1,78 @@
+﻿@model PaginatedList<ContosoUniversity.Models.Student>
+
+@{
+    ViewData["Title"] = "学生详情";
+}
+
+<h2>学生</h2>
+
+<p>
+    <a asp-action="Create">新增学生</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            按姓名查找: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="搜索" class="btn btn-default" /> |
+            <a asp-action="Index">返回列表</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">姓名</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">入学时间</a>
+            </th>
+            <th>
+                <a asp-action="Index"  asp-route-currentFilter="@ViewData["CurrentFilter"]">剩余课时</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentCount)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">编辑</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">详情</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">删除</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    上一页
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    下一页
+</a>

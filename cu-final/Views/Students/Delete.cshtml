@@ -1,0 +1,40 @@
+﻿@model ContosoUniversity.Models.Student
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>删除</h2>
+<p class="text-danger">@ViewData["ErrorMessage"]</p>
+
+<h3>是否要删除？</h3>
+<div>
+    <h4>学生</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentCount)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="删除" class="btn btn-default" /> |
+        <a asp-action="Index">返回列表</a>
+    </form>
+</div>

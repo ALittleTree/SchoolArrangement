@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ContosoUniversity.Models.SchoolViewModels.CourseScheduleVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>本周课表</h2>
+
+<p>
+    <a asp-action="Create">新建课程</a>
+    <a asp-action="CopyfromLastWeek">复制上周课程</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InstructorName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ScheduleDate)
+                </th>
+                <th>
+                    星期
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstructorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScheduleDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DayOfWeek)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CourseScheduleID">编辑</a> |
+                <a asp-action="Details" asp-route-id="@item.CourseScheduleID">详情</a> |
+                <a asp-action="Delete" asp-route-id="@item.CourseScheduleID">删除</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

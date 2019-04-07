@@ -1,0 +1,11 @@
+D:\gitCode\Docs\aspnetcore\data\ef-mvc\intro\samples\cu-final\bin\Debug\netcoreapp2.0\ContosoUniversity.deps.json
+D:\gitCode\Docs\aspnetcore\data\ef-mvc\intro\samples\cu-final\bin\Debug\netcoreapp2.0\ContosoUniversity.runtimeconfig.json
+D:\gitCode\Docs\aspnetcore\data\ef-mvc\intro\samples\cu-final\bin\Debug\netcoreapp2.0\ContosoUniversity.runtimeconfig.dev.json
+D:\gitCode\Docs\aspnetcore\data\ef-mvc\intro\samples\cu-final\bin\Debug\netcoreapp2.0\ContosoUniversity.dll
+D:\gitCode\Docs\aspnetcore\data\ef-mvc\intro\samples\cu-final\bin\Debug\netcoreapp2.0\ContosoUniversity.pdb
+D:\gitCode\Docs\aspnetcore\data\ef-mvc\intro\samples\cu-final\obj\Debug\netcoreapp2.0\ContosoUniversity.csprojAssemblyReference.cache
+D:\gitCode\Docs\aspnetcore\data\ef-mvc\intro\samples\cu-final\obj\Debug\netcoreapp2.0\ContosoUniversity.csproj.CoreCompileInputs.cache
+D:\gitCode\Docs\aspnetcore\data\ef-mvc\intro\samples\cu-final\obj\Debug\netcoreapp2.0\ContosoUniversity.AssemblyInfoInputs.cache
+D:\gitCode\Docs\aspnetcore\data\ef-mvc\intro\samples\cu-final\obj\Debug\netcoreapp2.0\ContosoUniversity.AssemblyInfo.cs
+D:\gitCode\Docs\aspnetcore\data\ef-mvc\intro\samples\cu-final\obj\Debug\netcoreapp2.0\ContosoUniversity.dll
+D:\gitCode\Docs\aspnetcore\data\ef-mvc\intro\samples\cu-final\obj\Debug\netcoreapp2.0\ContosoUniversity.pdb

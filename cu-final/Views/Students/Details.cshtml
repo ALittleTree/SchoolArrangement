@@ -1,0 +1,96 @@
+﻿@model ContosoUniversity.Models.Student
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>详情</h2>
+
+<div>
+    <h4>学生</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Enrollments)
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>课程名</th>
+                </tr>
+                @foreach (var item in Model.Enrollments)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Course.Title)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+    <input type="hidden" value="@Model.ID" id="studentID" />
+    <h4>上课详情</h4>
+    <label>开始时间</label>
+    <input type="date" id="startDate" value="" />
+    <label>结束时间</label>
+    <input type="date" id="endDate" value="" />
+    <input type="button" id="searchStudent"  value="搜索"/>
+    <table class="table" id="courseScheduleForStudent" >
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">编辑</a> |
+    <a asp-action="Index">回到列表</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+
+            var dealCourseSchedule = function () {
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
+                $.ajax({
+                    url: "/CourseSchedules/GetCourseByStudentId",
+                    data: {
+                        studentID: $("#studentID").val(),
+                        startDate: startDate,
+                        endDate: endDate
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        var optionString = '<tr><td>课程名</td><td>上课时间</td><td>是否请假</td></tr>';
+                        for (var i = 0; i < data.length; i++) {
+                            optionString += '<tr><td>' + data[i].courseName + '</td><td>' + data[i].scheduleDate + '</td><td>' + data[i].isAskForLeave + '</td></tr>';
+                        }
+                        $("#courseScheduleForStudent>tbody").empty().append(optionString);
+                    }
+                });
+            };
+            dealCourseSchedule();
+            $("#searchStudent").bind('click', dealCourseSchedule);
+        });
+    </script>
+}
