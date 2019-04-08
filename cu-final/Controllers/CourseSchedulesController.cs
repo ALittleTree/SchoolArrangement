@@ -27,12 +27,13 @@ namespace ContosoUniversity.Controllers
             var starDate = CommonHelper.GetTheStartDayOfThisWeek();
             ViewData["starDate"] = starDate.Date.ToString();
             ViewData["endDate"] = endDate.Date.ToString();
-            var allSchedule = await _context.CourseSchedule.ToListAsync();
+            var allSchedule = await _context.CourseSchedule.Where(s => s.ScheduleDate >= starDate.Date && s.ScheduleDate <= endDate.Date).ToListAsync();
+            var allInstructors = await _context.Instructors.ToListAsync();
+            var allCourses = await _context.Courses.ToListAsync();
             var allScheduleVM = (from s in allSchedule
-                                 from i in _context.Instructors
-                                 from c in _context.Courses
+                                 from i in allInstructors
+                                 from c in allCourses
                                  where s.CourseID == c.CourseID && s.InstructorID == i.ID
-                                 && s.ScheduleDate >= starDate.Date && s.ScheduleDate <= endDate.Date
                                  select new CourseScheduleVM
                                  {
                                      CourseScheduleID = s.CourseScheduleID,
